@@ -7,27 +7,44 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; }
   .box { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; }
-  h2 { margin-bottom: 1.5rem; text-align: center; }
-  input { width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
-  button { width: 100%; padding: 0.7rem; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  h2 { font-size: 18px; text-align: center; margin-bottom: 1.5rem; color: #333; }
+  label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
+  .field { margin-bottom: 1rem; }
+  input { width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  input:focus { outline: none; border-color: #888; }
+  button { width: 100%; padding: 0.7rem; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-top: 0.5rem; }
   button:hover { background: #555; }
+  .msg { margin-top: 1rem; font-size: 13px; text-align: center; min-height: 20px; color: green; }
+  .err { color: red; }
 </style>
 </head>
 <body>
 <div class="box">
-  <h2>Login</h2>
-  <input type="text" id="user" placeholder="Username">
-  <input type="password" id="pass" placeholder="Password">
+  <h2>Sign In</h2>
+  <div class="field">
+    <label>Username</label>
+    <input type="text" id="user" placeholder="Enter your username">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="pass" placeholder="Enter your password">
+  </div>
   <button onclick="login()">Sign In</button>
+  <div class="msg" id="msg"></div>
 </div>
 <script>
   function login() {
-    const u = document.getElementById('user').value;
-    const p = document.getElementById('pass').value;
-    if (u && p) alert('Welcome, ' + u + '!');
-    else alert('Please fill in all fields.');
+    const u = document.getElementById('user').value.trim();
+    const p = document.getElementById('pass').value.trim();
+    const msg = document.getElementById('msg');
+    if (!u || !p) {
+      msg.textContent = 'Please fill in all fields.';
+      msg.className = 'msg err';
+    } else {
+      msg.textContent = 'Welcome back, ' + u + '.';
+      msg.className = 'msg';
+    }
   }
 </script>
 </body>
 </html>
-
